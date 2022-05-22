@@ -12,6 +12,7 @@ module.exports = {
     checkResponseCodeIsSuccess,
     checkResponseCodeIsCreated,
     checkResponseCodeIsDeleted,
+    checkResponseCodeIsNotFound,
     getConfig,
     verifyUserDataIdentity
 }
@@ -35,6 +36,10 @@ function checkResponseCodeIsCreated(response){
 
 function checkResponseCodeIsDeleted(response){
     return assert.equal(response.status, deletedCode)
+}
+
+function checkResponseCodeIsNotFound(error){
+    return assert.equal(error.response.status, notFoundCode)
 }
 
 function getConfig(){

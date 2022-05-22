@@ -1,7 +1,7 @@
 require('dotenv').config()
 const axios = require('axios')
-const { assert } = require('chai')
-const { expect } = require('chai').expect
+const { assert } = require('chai');
+const { doesNotThrow } = require('should');
 
 const dataHelper  =  require('../utils/dataHelper');
 
@@ -51,15 +51,39 @@ describe('CRUD Users', () => {
         try {
             const response = await axios.get(`${BASE_URL}/users/${USERID}`, dataHelper.getConfig())
         }
-        catch (error){}
+        catch (error){
+            dataHelper.checkResponseCodeIsNotFound(error)
+        }
     })
 })
 
 describe('Test headers', () => {
 
-    it('Verify Content type header', async() =>{
+    it('Verify Content type header validity', async() =>{
         const response = await axios.get(`${BASE_URL}/users`, dataHelper.getConfig())
+        dataHelper.checkResponseCodeIsSuccess(response)
         assert.isTrue(response.headers.hasOwnProperty('content-type'), "Wrong content type")
         assert.equal(response.headers['content-type'], 'application/json; charset=utf-8')
+    })
+})
+
+describe('Test desc sorting', () => {
+
+    it('Verify that ids are sorted desc', async () => {
+        await Promise.resolve()
+        const response = await axios.get("https://fakestoreapi.com/users?sort=desc")
+        dataHelper.checkResponseCodeIsSuccess(response)
+        
+        //Comparing id values
+        let elemCount = response.data.length
+        for(let i = 0; i < response.data.length; i++){
+            if (response.data[i].id === elemCount){
+                elemCount--
+            }
+            else{
+                assert.fail('Sorting is not correct')
+            }
+        }
+
     })
 })
