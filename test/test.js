@@ -1,7 +1,6 @@
 require('dotenv').config()
 const axios = require('axios')
 const { assert } = require('chai');
-const { doesNotThrow } = require('should');
 
 const dataHelper  =  require('../utils/dataHelper');
 
