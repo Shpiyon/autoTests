@@ -1,0 +1,28 @@
+{
+  "name": "autotests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shpiyon/autoTests.git"
+  },
+  "author": "Arseniy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shpiyon/autoTests/issues"
+  },
+  "homepage": "https://github.com/Shpiyon/autoTests#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
+    "axios": "^0.27.2",
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "jest": "^28.1.0",
+    "mocha": "^10.0.0",
+    "should": "^13.2.3"
+  }
+}
