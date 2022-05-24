@@ -86,3 +86,34 @@ describe('Test desc sorting', () => {
 
     })
 })
+
+describe.only('WORK with posts', () => {
+    let userName = ''
+    let userId = ''
+    let postTitle = ''
+
+    before(async() =>{
+        const response = await axios.post(`${BASE_URL}/users`, user, dataHelper.getConfig())
+        dataHelper.checkResponseCodeIsCreated(response)
+        userName = response.data.data.name
+        userId = response.data.data.id
+    })
+
+    it('Create post', async () => {
+
+        const response = await axios.post(`${BASE_URL}/users/${userId}/posts`, dataHelper.generatePost(userId), dataHelper.getConfig())
+        postTitle = response.data.data.title
+        dataHelper.checkResponseCodeIsCreated(response)
+    })
+
+    it ('Getting users posts', async () => {
+        const response = await axios.get(`${BASE_URL}/users/${userId}/posts`, dataHelper.getConfig())
+        dataHelper.checkResponseCodeIsSuccess(response)
+        assert.equal(response.data.data[0].title, postTitle)
+    })
+
+    after(async () => {
+        const response = await axios.delete(`${BASE_URL}/users/${userId}`, dataHelper.getConfig())
+        dataHelper.checkResponseCodeIsDeleted(response)
+    })
+})

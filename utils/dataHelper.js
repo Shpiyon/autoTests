@@ -9,6 +9,7 @@ const notFoundCode = 404
 
 module.exports = {
     generateUser,
+    generatePost,
     checkResponseCodeIsSuccess,
     checkResponseCodeIsCreated,
     checkResponseCodeIsDeleted,
@@ -23,6 +24,13 @@ function generateUser(){
         email: faker.internet.email(),
         gender: faker.name.gender(true).toLowerCase(),
         status: "inactive"   
+    }
+}
+function generatePost(userId){
+    return {
+        user_id: userId,
+        title: faker.company.bsNoun(),
+        body: faker.lorem.sentence(5),   
     }
 }
 
